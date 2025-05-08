@@ -4,7 +4,17 @@ import { isValidEmail } from "@/utils/check-email";
 import axios from "axios";
 import { useState } from "react";
 import { TbMailForward } from "react-icons/tb";
-import { toast } from "react-toastify";
+import dynamic from 'next/dynamic';
+
+const ToastContainer = dynamic(
+  () => import('react-toastify').then((mod) => mod.ToastContainer),
+  { ssr: false }
+);
+
+const toast = dynamic(
+  () => import('react-toastify').then((mod) => mod.toast),
+  { ssr: false }
+);
 
 function ContactForm() {
   const [error, setError] = useState({ email: false, required: false });
@@ -124,6 +134,7 @@ function ContactForm() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
